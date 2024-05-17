@@ -1,0 +1,22 @@
+#name-title{
+    text-align: center;
+}
+.contact-info {
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+}
+.contact-item {
+    align-content: center;
+    margin: 0;
+}
+
+.education{
+    margin-top: 600 px;
+}
+
+#project-mealer img{
+    width: 100px;
+    height: 150px;
+}
