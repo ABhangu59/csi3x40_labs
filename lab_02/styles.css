@@ -1,0 +1,24 @@
+.short-hr {
+    width: 75%; 
+    
+    margin: 0 auto; 
+}
+
+.name {
+    text-align: center;
+}
+
+.experience-title {
+    font-weight: 600;
+    text-emphasis-color: blue;
+}
+
+.tabbed-text {
+    padding-left: 150px;}
+
+.body{
+    font-family:'Times New Roman', Times, serif;
+}
+
+
+
