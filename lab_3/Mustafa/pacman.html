@@ -5,5 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pacman</title>
   </head>
-  <body></body>
+  <body>
+    <div id="game-display"></div>
+
+    <script>
+      const PACMAN = "C";
+      const GHOST = "^";
+      const FRUIT = "@";
+      const PELLET = ".";
+
+      function createGame(n) {
+        var gameArray = [];
+        for (let i = 0; i < n; i++) {
+          //spawn pacman in the middle
+          if (i == Math.ceil(n / 2)) {
+            gameArray.push(PACMAN);
+            //spawn ghost at the end
+          } else if (i == n - 1) {
+            gameArray.push(GHOST);
+            //spawn the fruit about between pacman and ghost
+          } else if (i == Math.ceil((n * 2) / 3)) {
+            gameArray.push(FRUIT);
+            //spawn pellets everywhere else
+          } else {
+            gameArray.push(PELLET);
+          }
+        }
+        return gameArray;
+      }
+
+      //display the string in browser
+      var game = createGame(12);
+      var gameDisplay = document.getElementById("game-display");
+      var gameString = JSON.stringify(game);
+      gameDisplay.textContent = gameString;
+    </script>
+  </body>
 </html>
