@@ -13,9 +13,10 @@
       const GHOST = "^";
       const FRUIT = "@";
       const PELLET = ".";
+      var game = [];
 
       function createGame(n) {
-        var gameArray = [];
+        gameArray = [];
         for (let i = 0; i < n; i++) {
           //spawn pacman in the middle
           if (i == Math.ceil(n / 2)) {
@@ -31,14 +32,56 @@
             gameArray.push(PELLET);
           }
         }
+
+        updateGameDisplay();
         return gameArray;
+      }
+
+      function moveLeft(game) {
+        indexPacMan = game.indexOf(PACMAN);
+        indexLeftPacMan = 0;
+        if (indexPacMan == 0) {
+          indexLeftPacMan = game.length - 1;
+        } else {
+          indexLeftPacMan = indexPacMan - 1;
+        }
+
+        //swap
+        temp = game[indexLeftPacMan];
+        game[indexLeftPacMan] = PACMAN;
+        game[indexPacMan] = temp;
+
+        updateGameDisplay();
+        return game;
+      }
+
+      function moveRight(game) {
+        indexPacMan = game.indexOf(PACMAN);
+        indexRightPacMan = 0;
+        if (indexPacMan == game.length - 1) {
+          indexLeftPacMan = 0;
+        } else {
+          indexRightPacMan = indexPacMan + 1;
+        }
+
+        //swap
+        temp = game[indexRightPacMan];
+        game[indexRightPacMan] = PACMAN;
+        game[indexPacMan] = temp;
+
+        updateGameDisplay();
+        return game;
       }
 
       //display the string in browser
       var game = createGame(12);
-      var gameDisplay = document.getElementById("game-display");
-      var gameString = JSON.stringify(game);
-      gameDisplay.textContent = gameString;
+
+      // Function to update the game display
+      function updateGameDisplay() {
+        var gameDisplay = document.getElementById("game-display");
+        var gameString = game.join(" "); // Use join to display array elements with spaces
+        gameDisplay.textContent = gameString;
+      }
     </script>
   </body>
 </html>
