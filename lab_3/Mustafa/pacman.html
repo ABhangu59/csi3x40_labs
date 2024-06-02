@@ -7,16 +7,24 @@
   </head>
   <body>
     <div id="game-display"></div>
+    <div id="pellet-display"></div>
+    <div id="score-display"></div>
 
     <script>
       const PACMAN = "C";
       const GHOST = "^";
       const FRUIT = "@";
       const PELLET = ".";
+
       var game = [];
+      var gameWin = 0;
+      var score = 0;
+      var pellets = 0;
 
       function createGame(n) {
         gameArray = [];
+        pellets = 0;
+        gameWin = n - 3; //all pellets subract other game pieces
         for (let i = 0; i < n; i++) {
           //spawn pacman in the middle
           if (i == Math.ceil(n / 2)) {
@@ -33,6 +41,7 @@
           }
         }
 
+        game = gameArray;
         updateGameDisplay();
         return gameArray;
       }
@@ -46,10 +55,16 @@
           indexLeftPacMan = indexPacMan - 1;
         }
 
-        //swap
-        temp = game[indexLeftPacMan];
-        game[indexLeftPacMan] = PACMAN;
-        game[indexPacMan] = temp;
+        left_val = game[indexLeftPacMan];
+
+        if (left_val == PELLET) {
+          processPellet(game, indexLeftPacMan, indexPacMan);
+        } else {
+          //swap
+          temp = game[indexLeftPacMan];
+          game[indexLeftPacMan] = PACMAN;
+          game[indexPacMan] = temp;
+        }
 
         updateGameDisplay();
         return game;
@@ -58,18 +73,35 @@
       function moveRight(game) {
         indexPacMan = game.indexOf(PACMAN);
         indexRightPacMan = 0;
+
         if (indexPacMan == game.length - 1) {
           indexLeftPacMan = 0;
         } else {
           indexRightPacMan = indexPacMan + 1;
         }
+        right_val = game[indexRightPacMan];
 
-        //swap
-        temp = game[indexRightPacMan];
-        game[indexRightPacMan] = PACMAN;
-        game[indexPacMan] = temp;
+        if (right_val == PELLET) {
+          processPellet(game, indexRightPacMan, indexPacMan);
+        } else {
+          //swap
+          temp = game[indexRightPacMan];
+          game[indexRightPacMan] = PACMAN;
+          game[indexPacMan] = temp;
+        }
 
         updateGameDisplay();
+        return game;
+      }
+
+      function processPellet(game, indexOfCrossing, indexPrev) {
+        pellets++;
+        score++;
+        if (pellets == gameWin) {
+          return createGame(game.length + 3);
+        }
+        game[indexOfCrossing] = PACMAN;
+        game[indexPrev] = "_";
         return game;
       }
 
@@ -79,8 +111,16 @@
       // Function to update the game display
       function updateGameDisplay() {
         var gameDisplay = document.getElementById("game-display");
+        var pelletCountDisplay = document.getElementById("pellet-display");
+        var scoreDisplay = document.getElementById("score-display");
+
         var gameString = game.join(" "); // Use join to display array elements with spaces
+        var pelletString = "Pellets: " + pellets + "/" + gameWin;
+        var scoreString = "Score: " + score;
+
         gameDisplay.textContent = gameString;
+        pelletCountDisplay.textContent = pelletString;
+        scoreDisplay.textContent = scoreString;
       }
     </script>
   </body>
