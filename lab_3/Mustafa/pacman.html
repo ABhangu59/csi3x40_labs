@@ -105,12 +105,18 @@
         return game;
       }
 
-      //display the string in browser
-      var game = createGame(12);
+      function handleKeyPress(event) {
+        if (event.keyCode === 37) {
+          moveLeft(game);
+        } else if (event.keyCode === 39) {
+          moveRight(game);
+        }
+      }
 
       // Function to update the game display
       function updateGameDisplay() {
         var gameDisplay = document.getElementById("game-display");
+
         var pelletCountDisplay = document.getElementById("pellet-display");
         var scoreDisplay = document.getElementById("score-display");
 
@@ -122,6 +128,9 @@
         pelletCountDisplay.textContent = pelletString;
         scoreDisplay.textContent = scoreString;
       }
+
+      var game = createGame(12);
+      document.addEventListener("keydown", handleKeyPress);
     </script>
   </body>
 </html>
