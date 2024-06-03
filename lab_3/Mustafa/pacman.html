@@ -94,6 +94,35 @@
         return game;
       }
 
+      function moveGhost(game) {
+        indexGhost = game.indexOf(GHOST);
+        indexNextGhost = 0;
+        leftOrRight = Math.random();
+
+        if (leftOrRight >= 0.5) {
+          //move ghost right
+          if (indexGhost == game.length - 1) {
+            indexNextGhost = 0;
+          } else {
+            indexNextGhost = indexGhost + 1;
+          }
+        } else {
+          //move ghost left
+          if (indexGhost == 0) {
+            indexNextGhost = game.length - 1;
+          } else {
+            indexGhostNext = indexGhost - 1;
+          }
+        }
+
+        temp = game[indexNextGhost];
+        game[indexNextGhost] = GHOST;
+        game[indexGhost] = temp;
+
+        updateGameDisplay();
+        return game;
+      }
+
       function processPellet(game, indexOfCrossing, indexPrev) {
         pellets++;
         score++;
@@ -110,6 +139,8 @@
           moveLeft(game);
         } else if (event.keyCode === 39) {
           moveRight(game);
+        } else if (event.keyCode === 77) {
+          moveGhost(game);
         }
       }
 
@@ -131,6 +162,9 @@
 
       var game = createGame(12);
       document.addEventListener("keydown", handleKeyPress);
+      setInterval(function () {
+        moveGhost(game);
+      }, 2000);
     </script>
   </body>
 </html>
