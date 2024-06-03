@@ -1,7 +1,7 @@
 # Lab 3: 1D Pac-Man
 
 Student: Mustafa Ahmed\
-Class: CSI3104\
+Class: CSI3140\
 Date: June 2, 2024
 
 This is an implementation of 1D Pac-Man using Javascript to run the game and HTML to render it on a browser. It allows the user to control pacman, eat pellets and track their score.
